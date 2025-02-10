@@ -237,7 +237,6 @@
 				}
 			}
 			.cofee.finished {
-				clip-path: circle(810px at 140px 800px) !important;
 				animation: cofeeFinished 1s;
 			}
 			@keyframes cofeeFinished {
@@ -256,7 +255,7 @@
 				opacity: 0;
 			}
 			.secondaryCofeeCont:has(.secondaryCofee.finished) {
-				width: 250px;
+				width: var(--cofee-size);
 				opacity: 1;
 				transition: 1s;
 			}
