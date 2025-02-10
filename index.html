@@ -112,6 +112,9 @@
 		</style>
 
 		<style>
+			:root {
+				--cofee-size: 250px;
+			}
 			body {
 				min-height: 100vh;
 				max-width: 100vw;
@@ -163,8 +166,8 @@
 				justify-content: center;
 				align-items: end;
 				margin-top: 70px;
-				height: 300px;
-				width: 520px;
+				height: calc(--cofee-size * 1.2);
+				width: calc(--cofee-size * 2.1);
 				box-shadow: inset 0 0 2em #0008;
 				background-image: radial-gradient(at 50% -48%, #fffae091, transparent 80%);
 				padding-block-start: 50px;
