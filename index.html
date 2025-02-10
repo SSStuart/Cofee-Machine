@@ -59,229 +59,8 @@
 			p, li, figcaption {
 				text-wrap: pretty;
 			}
-
-			.inputCont {
-				display: flex;
-				align-items: center;
-				gap: 0.5em;
-				margin: 0.5em;
-				transition: background-color 250ms;
-			}
-			.inputCont label {
-				position: relative;
-			}
-			.inputCont:has(:required) label::after {
-				content: "*";
-				color: var(--input-invalid-color);
-			}
-			.inputCont:focus-within {
-				background-color: #8881;
-			}
-			.inputCont[data-dir="vertical"] {
-				flex-direction: column;
-				align-items: normal;
-				justify-content: center;
-			}
-			.inputCont[data-dir="vertical"]:has(input[type="checkbox"]),
-			.inputCont[data-dir="vertical"]:has(input[type="radio"]) {
-				display: grid;
-				grid-template-columns: auto auto;
-				justify-content: start;
-			}
-			input[type="text"],
-			input[type="tel"],
-			input[type="email"],
-			textarea {
-				border: solid 1px;
-				font: inherit;
-				padding: 5px 10px;
-				border-radius: 5px;
-			}
-			input:user-valid,
-			textarea:user-valid {
-				border-color: var(--input-valid-color);
-			}
-			input:user-invalid,
-			textarea:user-invalid {
-				border-color: var(--input-invalid-color);
-			}
-			.inputCont:has(input:user-invalid) label::after,
-			.inputCont:has(textarea:user-invalid) label::after {
-				content: '⚠';
-				color: var(--input-invalid-color);
-			}
-			textarea {
-				max-width: 100vw;
-			}
-			input[type="checkbox"],
-			input[type="radio"] {
-				cursor: pointer;
-			}
-			input[type="checkbox"]:checked + label,
-			input[type="radio"]:checked + label {
-				color: var(--accent-color);
-			}
-			button,
-			input[type="submit"],
-			.linkBtn {
-				display: inline-block;
-				border: solid 1px;
-				font: inherit;
-				color: inherit;
-				text-decoration: none;
-				background-color: transparent;
-				padding: 5px 10px;
-				border-radius: 5px;
-				cursor: pointer;
-				margin: 0.5em;
-				transition: 250ms;
-			}
-			button:has(.iiicons),
-			input[type="submit"]:has(.iiicons),
-			.linkBtn:has(.iiicons) {
-				display: inline-flex;
-				flex-direction: row;
-				align-items: baseline;
-				justify-content: center;
-				gap: 1ch;
-			}
-			button:not(:disabled):hover,
-			input[type="submit"]:not(:disabled):hover,
-			.linkBtn:hover {
-				box-shadow: 2px 2px 0;
-				transform: translate(-2px, -2px);
-			}
-			button:not(:disabled):focus,
-			input[type="submit"]:not(:disabled):focus,
-			.linkBtn:focus {
-				box-shadow: 2px 2px 0;
-				transform: translate(-2px, -2px);
-			}
-			button:not(:disabled):active,
-			input[type="submit"]:not(:disabled):active,
-			.linkBtn:active {
-				background-color: #8888;
-			}
-			button:disabled,
-			input[type="submit"]:disabled {
-				color: #8888;
-				cursor: not-allowed;
-			}
-			.btnLink {
-				text-decoration: underline;
-				border: none;
-			}
-			.btnLink:not(:disabled):hover {
-				box-shadow: none;
-				transform: none;
-			}
-			.btnLink:not(:disabled):focus {
-				box-shadow: none;
-				transform: none;
-				background-color: transparent;
-			}
-			button.discret,
-			input[type="submit"].discret,
-			.btnLink.discret {
-				background-color: transparent;
-				border: none;
-			}
-			button.discret:not(:disabled):hover,
-			input[type="submit"].discret:not(:disabled):hover,
-			.linkBtn.discret:hover {
-				box-shadow: none;
-				transform: none;
-				background-color: #8883;
-			}
-			button.discret:not(:disabled):focus,
-			input[type="submit"].discret:not(:disabled):focus,
-			.linkBtn.discret:focus {
-				box-shadow: none;
-				transform: none;
-				background-color: #8883;
-			}
 			a {
 				color: inherit;
-			}
-
-			#alertCont {
-				position: fixed;
-				bottom: 0;
-				left: 1em;
-				right: 1em;
-				margin: auto;
-				width: fit-content;
-				z-index: -1;
-				pointer-events: none;
-			}
-			#alertCont.visible {
-				z-index: 5;
-				pointer-events: unset;
-			}
-
-			#alertMsg {
-				position: relative;
-				bottom: -1em;
-				display: grid;
-				grid-template-columns: auto 1fr;
-				align-items: center;
-				gap: 1ch;
-				font-size: 1rem;
-				opacity: 0;
-				background-color: #050505BB;
-				box-shadow: 0 0 0.5em black;
-				backdrop-filter: blur(10px);
-				color: #fff;
-				padding: 1ch;
-				padding-right: 2ch;
-				border-style: solid;
-				border-width: 2px;
-				border-radius: 2em;
-				max-width: fit-content;
-				overflow: hidden;
-				transition: 500ms;
-			}
-			#alertMsg.visible {
-				bottom: 1em;
-				opacity: 1;
-			}
-			#alertMsg > .iiicons {
-				font-size: 120%;
-				padding: 1ch;
-			}
-			#alertMsg::after {
-				content: '';
-				position: absolute;
-				right: 0;
-				bottom: 0;
-				background-color: #FFF2;
-				height: 100%;
-				width: 100%;
-				opacity: 0.5;
-				pointer-events: none;
-				transition-timing-function: linear;
-				transition-property: width;
-			}
-			#alertMsg.visible::after {
-				width: 0%;
-			}
-			#alertQueue {
-				opacity: 0;
-				position: absolute;
-				bottom: -1.5em;
-				left: -1em;
-				background-color: #050505BB;
-				backdrop-filter: blur(10px);
-				color: #fff;
-				border-radius: 100px;
-				padding: 5px;
-				font-size: 50%;
-				font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-				transition: 1s;
-			}
-			#alertQueue:not(:empty) {
-				bottom: 0.5em;
-				opacity: 1;
 			}
 		</style>
 
@@ -319,6 +98,15 @@
 			}
 			#startCofee:disabled {
 				filter: brightness(1);
+				animation: blinkSoft 2s infinite;
+			}
+			@keyframes blinkSoft {
+				0%, 100% {
+					filter: brightness(1);
+				}
+				50% {
+					filter: brightness(1.3);
+				}
 			}
 			#cofeeMakingPlace {
 				margin-inline: 20px;
