@@ -293,7 +293,6 @@
 				align-items: center;
 			}
 			#cofeeMachine {
-				width: 300px;
 				height: 500px;
 				background-color: darkgrey;
 				display: flex;
@@ -319,23 +318,29 @@
 			#startCofee:disabled {
 				filter: brightness(1);
 			}
-			#cofeeCont {
+			#cofeeMakingPlace {
 				margin-inline: 20px;
-				
 				display: flex;
 				justify-content: center;
 				align-items: end;
 				margin-top: 70px;
 				height: 300px;
-				width: 260px;
+				width: 520px;
 				box-shadow: inset 0 0 2em #0008;
+				padding-block-start: 50px;
 			}
-			#cofee {
-				max-height: 90%;
-				max-width: 100%;
+			#cofeeCont {
+				height: 100%;
+				display: flex;
+			}
+			.cofee {
+				max-height: 100%;
+				width: auto;
+			}
+			#cofeeMain {
 				clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
 			}
-			#cofee.revealing {
+			#cofeeMain.revealing {
 				animation: cofeeReveal 8s linear forwards;
 			}
 			@keyframes cofeeReveal {
@@ -348,8 +353,8 @@
 					filter: contrast(1) brightness(0) blur(0);
 				}
 			}
-			#cofee.finished {
-				clip-path: circle(810px at 140px 800px);
+			.cofee.finished {
+				clip-path: circle(810px at 140px 800px) !important;
 				animation: cofeeFinished 1s;
 			}
 			@keyframes cofeeFinished {
@@ -363,6 +368,15 @@
 					filter: contrast(1) brightness(1);
 				}
 			}
+			.secondaryCofeeCont {
+				width: 0;
+				opacity: 0;
+			}
+			.secondaryCofeeCont:has(.secondaryCofee.finished) {
+				width: 250px;
+				opacity: 1;
+				transition: 1s;
+			}
 		</style>
 	</head>
 	<body>
@@ -372,8 +386,16 @@
 		<main>
 			<div id="cofeeMachine">
 				<button id="startCofee" type="button">O</button>
-				<div id="cofeeCont">
-					<img id="cofee" src="./cofeeImg/cofeeAlsacien.png">
+				<div id="cofeeMakingPlace">
+					<div id="cofeeCont">
+						<div class="secondaryCofeeCont">
+							<img id="cofeeCombineLeft" class="cofee secondaryCofee" src="">
+						</div>
+						<img id="cofeeMain" class="cofee" src="">
+						<div class="secondaryCofeeCont">
+							<img id="cofeeCombineRight" class="cofee secondaryCofee" src="">
+						</div>
+					</div>
 				</div>
 			</div>
 		</main>
@@ -382,123 +404,143 @@
 		</footer>
 		<script>
 			const COFEE_BUTTON = document.getElementById("startCofee");
-			const COFEE_IMG = document.getElementById("cofee");
+			const COFEE_IMG = document.getElementById("cofeeMain");
 			const FILES_LIST = [
-				"cofeeAlbin.png",
-				"cofeeAlsacien.png",
-				"cofeeArteau.png",
-				"cofeeBaby.png",
-				"cofeeBan.png",
-				"cofeeBeer.png",
-				"cofeeBeerBretzel.png",
-				"cofeeBirthday.png",
-				"cofeeBobRoss.png",
-				"cofeeBot.png",
-				"cofeeBreton.png",
-				"cofeeBretzel.png",
-				"cofeeBroom.png",
-				"cofeeBugManFr.png",
-				"cofeeBurger.png",
-				"cofeeCamera.gif",
-				"cofeeCelesteEmma.png",
-				"cofeeChockbar.png",
-				"cofeeChristmas.png",
-				"cofeeChristmasTree.png",
-				"cofeeCleaning.png",
-				"cofeeComputer.png",
-				"cofeeCookie.png",
-				"cofeeCool.png",
-				"cofeeCrement.png",
-				"cofeeCubb.gif",
-				"cofeeDancing.gif",
-				"cofeeDog.png",
-				"cofeeDrunk.png",
-				"cofeeEmmaCeleste.png",
-				"cofeeEvil.png",
-				"cofeeFirefighter.png",
-				"cofeeFlip.gif",
-				"cofeeFlushed.png",
-				"cofeeGamer.png",
-				"cofeeGigachad.png",
-				"cofeeGlasses.png",
-				"cofeeHalloween.png",
-				"cofeeHawx.png",
-				"cofeeHawxReverse.png",
-				"cofeeHeart.png",
-				"cofeeHello.png",
-				"cofeeHoney.png",
-				"cofeeHug.png",
-				"cofeeHungry.png",
-				"cofeeHusky.png",
-				"cofeeIrish.png",
-				"cofeeJoy.png",
-				"cofeeKappa.png",
-				"cofeeKwak.png",
-				"cofeeLego.png",
-				"cofeeLorraine.png",
-				"cofeeLouane.png",
-				"cofeeLove.png",
-				"cofeeMecano.png",
-				"cofeeMedic.png",
-				"cofeEmma.png",
-				"cofeeMoney.png",
-				"cofeeMouais.png",
-				"cofeeMusic.png",
-				"cofeen.png",
-				"cofeeNerd.png",
-				"cofeeNormandie.png",
-				"cofeeNoted.png",
-				"cofeeOccitan.png",
-				"cofeeOmbre.png",
-				"cofeePig.png",
-				"cofeePlane.png",
-				"cofeePog.png",
-				"cofeePolice.png",
-				"cofeePopcorn.png",
-				"cofeeRaclette.png",
-				"cofeeRayreth.gif",
-				"cofeeRayreth4x4.gif",
-				"cofeeRelieved.png",
-				"cofeeRemi.png",
-				"cofeeReverse.png",
-				"cofeeRocket.gif",
-				"cofeerrari.png",
-				"cofeeSad.png",
-				"cofeeSalute.png",
-				"cofeeShocked.png",
-				"cofeeSilane.png",
-				"cofeeSip.png",
-				"cofeeSkull.png",
-				"cofeeSleeping.png",
-				"cofeeSnake.png",
-				"cofeeSpinning.gif",
-				"cofeeStars.png",
-				"cofeeStonks.png",
-				"cofeeStuart.png",
-				"cofeeSus.png",
-				"cofeeSweat.png",
-				"cofeeTea.png",
-				"cofeeThinking.png",
-				"cofeeThis.png",
-				"cofeeThumbsUp+1.png",
-				"cofeeTirelangue.png",
-				"cofeeTractor.png",
-				"cofeeTrump.png",
-				"cofeeUpsideDown.png",
-				"cofeeUwU.png",
-				"deCofee.png"
+				{name: 'cofeeAlbin.png', combinedWith: ''},
+				{name: 'cofeeAlsacien.png', combinedWith: 'cofeeLorraine.png+'},
+				{name: 'cofeeArteau.png', combinedWith: ''},
+				{name: 'cofeeBaby.png', combinedWith: ''},
+				{name: 'cofeeBan.png', combinedWith: ''},
+				{name: 'cofeeBeer.png', combinedWith: ''},
+				{name: 'cofeeBeerBretzel.png', combinedWith: ''},
+				{name: 'cofeeBirthday.png', combinedWith: ''},
+				{name: 'cofeeBobRoss.png', combinedWith: ''},
+				{name: 'cofeeBot.png', combinedWith: ''},
+				{name: 'cofeeBreton.png', combinedWith: '+cofeeNormandie.png'},
+				{name: 'cofeeBretzel.png', combinedWith: ''},
+				{name: 'cofeeBroom.png', combinedWith: ''},
+				{name: 'cofeeBugManFr.png', combinedWith: ''},
+				{name: 'cofeeBurger.png', combinedWith: ''},
+				{name: 'cofeeCamera.gif', combinedWith: ''},
+				{name: 'cofeeCelesteEmma.png', combinedWith: 'cofeeEmmaCeleste.png+'},
+				{name: 'cofeeChockbar.png', combinedWith: ''},
+				{name: 'cofeeChristmas.png', combinedWith: ''},
+				{name: 'cofeeChristmasTree.png', combinedWith: ''},
+				{name: 'cofeeCleaning.png', combinedWith: ''},
+				{name: 'cofeeComputer.png', combinedWith: ''},
+				{name: 'cofeeCookie.png', combinedWith: ''},
+				{name: 'cofeeCool.png', combinedWith: ''},
+				{name: 'cofeeCrement.png', combinedWith: ''},
+				{name: 'cofeeCubb.gif', combinedWith: ''},
+				{name: 'cofeeDancing.gif', combinedWith: ''},
+				{name: 'cofeeDog.png', combinedWith: ''},
+				{name: 'cofeeDrunk.png', combinedWith: ''},
+				{name: 'cofeeEmmaCeleste.png', combinedWith: '+cofeeCelesteEmma.png'},
+				{name: 'cofeeEvil.png', combinedWith: 'cofeeFirefighter.png+'},
+				{name: 'cofeeFirefighter.png', combinedWith: '+cofeeEvil.png'},
+				{name: 'cofeeFlip.gif', combinedWith: ''},
+				{name: 'cofeeFlushed.png', combinedWith: ''},
+				{name: 'cofeeGamer.png', combinedWith: ''},
+				{name: 'cofeeGigachad.png', combinedWith: ''},
+				{name: 'cofeeGlasses.png', combinedWith: ''},
+				{name: 'cofeeHalloween.png', combinedWith: ''},
+				{name: 'cofeeHawx.png', combinedWith: ''},
+				{name: 'cofeeHawxReverse.png', combinedWith: ''},
+				{name: 'cofeeHeart.png', combinedWith: ''},
+				{name: 'cofeeHello.png', combinedWith: ''},
+				{name: 'cofeeHoney.png', combinedWith: ''},
+				{name: 'cofeeHug.png', combinedWith: ''},
+				{name: 'cofeeHungry.png', combinedWith: ''},
+				{name: 'cofeeHusky.png', combinedWith: ''},
+				{name: 'cofeeIrish.png', combinedWith: ''},
+				{name: 'cofeeJoy.png', combinedWith: ''},
+				{name: 'cofeeKappa.png', combinedWith: ''},
+				{name: 'cofeeKwak.png', combinedWith: ''},
+				{name: 'cofeeLego.png', combinedWith: ''},
+				{name: 'cofeeLorraine.png', combinedWith: '+cofeeAlsacien.png'},
+				{name: 'cofeeLouane.png', combinedWith: ''},
+				{name: 'cofeeLove.png', combinedWith: ''},
+				{name: 'cofeeMecano.png', combinedWith: ''},
+				{name: 'cofeeMedic.png', combinedWith: ''},
+				{name: 'cofeEmma.png', combinedWith: ''},
+				{name: 'cofeeMoney.png', combinedWith: ''},
+				{name: 'cofeeMouais.png', combinedWith: ''},
+				{name: 'cofeeMusic.png', combinedWith: ''},
+				{name: 'cofeen.png', combinedWith: ''},
+				{name: 'cofeeNerd.png', combinedWith: ''},
+				{name: 'cofeeNormandie.png', combinedWith: 'cofeeBreton.png+'},
+				{name: 'cofeeNoted.png', combinedWith: ''},
+				{name: 'cofeeOccitan.png', combinedWith: ''},
+				{name: 'cofeeOmbre.png', combinedWith: ''},
+				{name: 'cofeePig.png', combinedWith: ''},
+				{name: 'cofeePlane.png', combinedWith: ''},
+				{name: 'cofeePog.png', combinedWith: ''},
+				{name: 'cofeePolice.png', combinedWith: ''},
+				{name: 'cofeePopcorn.png', combinedWith: ''},
+				{name: 'cofeeRaclette.png', combinedWith: ''},
+				{name: 'cofeeRayreth.gif', combinedWith: ''},
+				{name: 'cofeeRayreth4x4.gif', combinedWith: ''},
+				{name: 'cofeeRelieved.png', combinedWith: ''},
+				{name: 'cofeeRemi.png', combinedWith: ''},
+				{name: 'cofeeReverse.png', combinedWith: ''},
+				{name: 'cofeeRocket.gif', combinedWith: ''},
+				{name: 'cofeerrari.png', combinedWith: ''},
+				{name: 'cofeeSad.png', combinedWith: ''},
+				{name: 'cofeeSalute.png', combinedWith: ''},
+				{name: 'cofeeShocked.png', combinedWith: ''},
+				{name: 'cofeeSilane.png', combinedWith: ''},
+				{name: 'cofeeSip.png', combinedWith: ''},
+				{name: 'cofeeSkull.png', combinedWith: ''},
+				{name: 'cofeeSleeping.png', combinedWith: ''},
+				{name: 'cofeeSnake.png', combinedWith: ''},
+				{name: 'cofeeSpinning.gif', combinedWith: ''},
+				{name: 'cofeeStars.png', combinedWith: ''},
+				{name: 'cofeeStonks.png', combinedWith: ''},
+				{name: 'cofeeStuart.png', combinedWith: ''},
+				{name: 'cofeeSus.png', combinedWith: ''},
+				{name: 'cofeeSweat.png', combinedWith: ''},
+				{name: 'cofeeTea.png', combinedWith: ''},
+				{name: 'cofeeThinking.png', combinedWith: ''},
+				{name: 'cofeeThis.png', combinedWith: ''},
+				{name: 'cofeeThumbsUp+1.png', combinedWith: ''},
+				{name: 'cofeeTirelangue.png', combinedWith: ''},
+				{name: 'cofeeTractor.png', combinedWith: ''},
+				{name: 'cofeeTrump.png', combinedWith: ''},
+				{name: 'cofeeUpsideDown.png', combinedWith: ''},
+				{name: 'cofeeUwU.png', combinedWith: ''},
+				{name: 'deCofee.png', combinedWith: ''}
 			];
+			const FILES_DIR = "./cofeeImg/";
+
+			let selectedCofee = "";
 
 			COFEE_BUTTON.addEventListener("click", function() {
 				this.disabled = true;
 				COFEE_IMG.classList.remove("revealing");
 				COFEE_IMG.classList.remove("finished");
+				document.getElementById("cofeeCombineRight").classList.remove("finished");
+				document.getElementById("cofeeCombineLeft").classList.remove("finished");
+				document.getElementById("cofeeCombineRight").src = "";
+				document.getElementById("cofeeCombineLeft").src = "";
 
 				COFEE_IMG.classList.add("revealing");
 				let shuffleCofees = setInterval(() => {
-					COFEE_IMG.src = "./cofeeImg/" + FILES_LIST[Math.floor(Math.random() * FILES_LIST.length)];
+					selectedCofee = FILES_LIST[Math.floor(Math.random() * FILES_LIST.length)];
+					COFEE_IMG.src = FILES_DIR + selectedCofee.name;
 				}, 200);
 				setTimeout(() => {
+					if (selectedCofee.combinedWith != "") {
+						if (selectedCofee.combinedWith.startsWith("+")) {
+							document.getElementById("cofeeCombineRight").src = FILES_DIR + selectedCofee.combinedWith.replace("+", "");
+							document.getElementById("cofeeCombineRight").classList.add("finished");
+						} else if (selectedCofee.combinedWith.endsWith("+")) {
+							document.getElementById("cofeeCombineLeft").src = FILES_DIR + selectedCofee.combinedWith.replace("+", "");
+							document.getElementById("cofeeCombineLeft").classList.add("finished");
+						}
+					} else {
+						document.getElementById("cofeeCombineRight").classList.remove("visible");
+						document.getElementById("cofeeCombineLeft").classList.remove("visible");
+					}
 					COFEE_IMG.classList.remove("revealing");
 					COFEE_IMG.classList.add("finished");
 					clearInterval(shuffleCofees);
